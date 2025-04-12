@@ -8,9 +8,9 @@ const client = new pg.Client(
 );
 
 const init = async () => {
-    await client.connect();
-    console.log("connected to databse");
-    const SQL = ` 
+  await client.connect();
+  console.log("connected to databse");
+  const SQL = ` 
        DROP TABLE IF EXISTS flavors;
        CREATE TABLE flavors(
        id SERIAL PRIMARY KEY,
@@ -22,11 +22,20 @@ const init = async () => {
        INSERT INTO flavors (ranking, flavor, name) VALUES(2, "vanilla", "good" )
        INSERT INTO flavors (ranking, flavor, name) VALUES(3, "coffee", "excellent" )
        `;
-    // await client.query(SQL)
-    // console.log("Tables created");
-    // SQL = ` `;
-    await client.query(SQL);
-    console.log("data seeded")
-}
+  // await client.query(SQL)
+  // console.log("Tables created");
+  // SQL = ` `;
+  await client.query(SQL);
+  console.log("data seeded");
+};
 
 init();
+
+server.use(express.json());
+server.use(require("morgan")("dev"));
+
+server.get("/api/flavors", async (req, resizeBy, next) => {});
+server.get("/api/flavors/:id", async (req, resizeBy, next) => {});
+server.post("/api/flavors/", async (req, resizeBy, next) => {});
+server.delete("/api/flavors/:id", async (req, resizeBy, next) => {});
+server.put("/api/flavors/:id", async (req, resizeBy, next) => {});
